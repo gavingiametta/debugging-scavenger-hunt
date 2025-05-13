@@ -13,6 +13,18 @@ import SuccessMessage from './components/SuccessMessage';
 import { setupGlobalClues } from './utils/clueSetup';
 import './App.css';
 
+function getEncodedString(x){
+  let toReturn = "";
+  const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!.?1234567890";
+
+  for (let i = 0; i < x.length; i++) {
+    toReturn = toReturn + "|" + String(alphabet.indexOf(x[i]));
+  }
+
+  return toReturn;
+}
+  
+
 function App() {
   const [password, setPassword] = useState('');
   const [attempts, setAttempts] = useState(0);
@@ -25,9 +37,9 @@ function App() {
   
   const handlePasswordSubmit = () => {
     setAttempts(attempts + 1);
-    const correct = "REACTDEVTOOLSAREAWESOMEFORFINDINGBUGS!";
+    const correct = "|43|30|26|28|45|29|30|47|45|40|40|37|44|26|43|30|26|48|30|44|40|38|30|31|40|43|31|34|39|29|34|39|32|27|46|32|44|52";
     
-    if (password.toUpperCase().replace(/\s/g, '') === correct) {
+    if (getEncodedString(password.toUpperCase().replace(/\s/g, '')) === correct) {
       setShowSuccess(true);
     } else {
       alert(`Not quite! Attempt #${attempts + 1}. Keep hunting! 
